@@ -15,9 +15,9 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.json()); // Parse JSON requests
-// app.use("/", (req, res) => {
-//     res.json({ message: "Hello from the backend!" });
-// })
+app.use("/", (req, res) => {
+    res.json({ message: "Backend is running" });
+})
 // Declare API routes
 app.use("/api", apiRoutes); // Attach all API routes
 

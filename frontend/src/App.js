@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/pages/home/components/Navbar";
 import Footer from "./components/pages/home/components/Footer";
-import Home from "./components/pages/home/Home";
+import First from "./components/pages/home/First";
 
 function App() {
     return (
@@ -12,7 +12,7 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<Home />}
+                        element={<First />}
                     />
                 </Routes>
                 <Footer />

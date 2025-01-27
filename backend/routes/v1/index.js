@@ -1,13 +1,12 @@
 import express from "express";
-import productsRoutes from "./products.routes.js";
-// import usersRoutes from "./users.routes.js"; // Example for user routes
-// import ordersRoutes from "./orders.routes.js"; // Example for orders routes
+import authRoutes from "./auth.routes.js";
+import quizRoutes from "./quiz.routes.js";
+import tokenRouter from "./token.routes.js";
 
 const router = express.Router();
 
-// Attach specific routes for version 1
-router.use("/products", productsRoutes);
-// router.use("/users", usersRoutes);
-// router.use("/orders", ordersRoutes);
+router.use("/auth", authRoutes);
+router.use("/quizzes", quizRoutes);
+router.use("/tokens", tokenRouter);
 
 export default router;

@@ -4,27 +4,44 @@ import { fetchYouTubeAudio } from '../utils/fetchYouTubeAudio.js';
 import { transcribeAudio } from '../utils/transcribeAudio.js';
 
 export const createQuiz = async (req, res) => {
-
-    const { url } = req.body;
-
-    const audioPath = await fetchYouTubeAudio(url);
-    const transcript = await transcribeAudio(audioPath);
-    console.log(transcript);
-    return res.status(200).json({ transcript });
-
-    const { title = "title", difficulty = "medium" } = req.body;
-
     try {
-        const questions = generateQuizFromTranscript(transcript);
+        const { videoUrl, topic, difficulty = 'Medium' } = req.body;
+
+        // Step 1: Download and process video
+        console.log('Processing video:', videoUrl);
+        const audioPath = await fetchYouTubeAudio(videoUrl);
+        const videoName = audioPath.split('/').pop().replace('.mp3', '');
+
+        // Step 2: Generate transcript
+        console.log('Generating transcript...');
+        const transcript = await transcribeAudio(audioPath);
+
+        // Step 3: Generate quiz
+        console.log('Generating quiz questions...');
+        const questions = await generateQuizFromTranscript(transcript);
+
+        // Step 4: Save to database
         const quiz = await Quiz.create({
-            topic: title,
+            topic: topic || videoName,
+            videoName,
+            videoURL: videoUrl,
             difficulty,
             questions,
-            createdBy: req.user._id // Assuming you have authentication middleware
+            totalQuestions: questions.length,
+            createdBy: req.user._id
         });
-        res.status(201).json({ message: "Quiz created", quiz });
+
+        res.status(201).json({
+            success: true,
+            message: "Quiz created successfully",
+            quiz
+        });
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        console.error('Quiz creation failed:', err);
+        res.status(400).json({
+            success: false,
+            message: err.message
+        });
     }
 };
 

@@ -8,7 +8,8 @@
     "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:yt": "node test/test-yt-fetcher.js",
-    "test:transcribe": "node test/test-transcription.js"
+    "test:transcribe": "node test/test-transcription.js",
+    "test:quiz-flow": "node test/test-quiz-flow.js"
   },
   "author": "Anupam",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "path": "^0.12.7",
     "ytdl-core": "^4.11.5",
     "axios": "^1.6.7",
-    "assemblyai": "^4.3.1"
+    "assemblyai": "^4.3.1",
+    "@google/generative-ai": "^0.2.0"
   }
 }

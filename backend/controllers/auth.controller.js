@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 
-const signUp = async (req, res) => {
+const signup = async (req, res) => {
     try {
         // Destructure the user's data from the request body
         const { name, email, password } = req.body;
@@ -124,5 +124,4 @@ const login = async (req, res) => {
     }
 };
 
-
-export { signUp, login };
+export { signup, login };

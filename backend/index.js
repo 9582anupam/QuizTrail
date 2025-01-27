@@ -1,24 +1,17 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import apiRoutes from "./routes/index.js"; // Main routes file
+import connectDB from "./db/index.js";
+import dotenv from "dotenv";
+import { app } from "./app.js";
 
-const app = express();
+dotenv.config();
 
-// Middleware Setup
-const corsOptions = {
-    origin: ["http://localhost:3000", "*"], // Allow your frontend domain and others
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-};
-app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.json()); // Parse JSON requests
-// app.use("/", (req, res) => {
-//     res.json({ message: "Hello from the backend!" });
-// })
-// Declare API routes
-app.use("/api", apiRoutes); // Attach all API routes
 
-export { app };
+
+connectDB()
+.then(
+    app.listen(process.env.PORT || 5000, () => {
+        console.log("Server running on port 5000");
+    })
+)
+.catch(
+    (error) => console.error("Error connecting to MongoDB", error)
+)

@@ -1,18 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const routes = require("./routes");
-
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import apiRoutes from "./routes/index.js"; // Main routes file
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(morgan("dev"));
+// Middleware Setup
+const corsOptions = {
+    origin: [ "https://bite-box-rose.vercel.app"], // Allow your frontend domain and others
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.json()); // Parse JSON requests
+// app.use("/", (req, res) => {
+//     res.json({ message: "Hello from the backend!" });
+// })
+// Declare API routes
+app.use("/api", apiRoutes); // Attach all API routes
 
-// Routes
-app.use("/api/v1", routes);
-
-module.exports = app;
+export { app };

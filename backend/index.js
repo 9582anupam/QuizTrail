@@ -1,12 +1,24 @@
-const app = require("./app");
-const connectDB = require("./db");
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import apiRoutes from "./routes/index.js"; // Main routes file
 
-const PORT = process.env.PORT || 5000;
+const app = express();
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => {
-    console.error("Failed to connect to database:", err);
-  });
+// Middleware Setup
+const corsOptions = {
+    origin: ["http://localhost:3000", "*"], // Allow your frontend domain and others
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.json()); // Parse JSON requests
+// app.use("/", (req, res) => {
+//     res.json({ message: "Hello from the backend!" });
+// })
+// Declare API routes
+app.use("/api", apiRoutes); // Attach all API routes
+
+export { app };

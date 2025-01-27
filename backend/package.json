@@ -6,11 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:yt": "node test/test-yt-fetcher.js"
   },
   "author": "Anupam",
   "license": "MIT",
   "dependencies": {
+    "@distube/ytdl-core": "^4.15.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cloudinary": "^2.5.1",
@@ -25,6 +27,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7",
     "npm": "^10.9.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "ytdl-core": "^4.11.5"
   }
 }

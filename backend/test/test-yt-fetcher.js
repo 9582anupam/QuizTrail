@@ -3,7 +3,7 @@ import { fetchYouTubeAudio } from '../utils/yt-fetcher.js';
 const testYouTubeFetcher = async () => {
     try {
         // Using a shorter, public domain video
-        const videoUrl = 'https://www.youtube.com/watch?v=jNQXAC9IVRw'; // "Me at the zoo" (YouTube's first video)
+        const videoUrl = 'https://www.youtube.com/watch?v=Jg3Fo4WD8XE'; // "Me at the zoo" (YouTube's first video)
         console.log('Testing with video URL:', videoUrl);
         console.log('Starting audio fetch...');
         
